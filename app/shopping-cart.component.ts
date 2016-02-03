@@ -4,7 +4,7 @@ import {Product} from './product';
 @Component({
   selector: 'shopping-cart',
   inputs: ['items'],
-  template: `<h1>{{title}} {{items.length}}</h1>
+  template: `<h2>{{title}}</h2>
              <ul>
                <li *ngFor='#item of items'>
                  <p>{{item.name}}</p>
@@ -84,7 +84,8 @@ export class ShoppingCartComponent {
     if(this.tenPoundDiscountIsApplicable()) {
       this.tenPoundDiscountApplied = true;
       this.discounts += 10;
-    }else {
+    }
+    else {
       alert('You do not qualify for this discount')
     };
   }
@@ -93,7 +94,8 @@ export class ShoppingCartComponent {
     if(this.fifteenPoundDiscountIsApplicable()) {
       this.fifteenPoundDiscountApplied = true;
       this.discounts += 15;
-    }else {
+    }
+    else {
       alert('You do not qualify for this discount')
     };
   }

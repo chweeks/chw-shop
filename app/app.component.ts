@@ -8,18 +8,25 @@ import {OnInit} from 'angular2/core';
   selector: 'my-app',
   providers: [ProductService],
   directives: [ShoppingCartComponent],
-  template: `<h1>{{title}}</h1>
-             <shopping-cart [items]='productsInCart'></shopping-cart>
-             <ul>
-               <li *ngFor='#product of products'>
-                 <h3>Product Details: {{product.name}}</h3>
-                 <p>Price: £{{product.price}}</p>
-                 <p>Category: {{product.category}}</p>
-                 <p>Quantity In Stock: {{product.quantityInStock}}</p>
-                 <button (click)='addToBasket(product)'>Add To Basket</button>
-               </li>
-             </ul>
-             `
+  template: `<header><h1>{{title}}</h1></header>
+             <div class='container'>
+               <div class='productsContainer'>
+                 <div class='productContainer' *ngFor='#product of products'>
+                   <h3>{{product.name}}</h3>
+                   <div class='productDetails'>
+                     <p>{{product.category}}</p>
+                     <p>Price: £{{product.price}}</p>
+                     <p class='red'>{{product.quantityInStock}} In Stock:</p>
+                   </div>
+                   <button (click)='addToBasket(product)'>Add To Basket</button>
+                 </div>
+               </div>
+               <div class='shoppingCartContainer'>
+                <shopping-cart [items]='productsInCart'></shopping-cart>
+               </div>
+             </div>
+             `,
+  styleUrls: ['app/productsList.css']
 })
 
 export class AppComponent implements OnInit {
@@ -39,6 +46,15 @@ export class AppComponent implements OnInit {
   }
 
   addToBasket(product) {
-    this.productsInCart.push(product);
+    if(this.isInStock(product)){
+      this.productsInCart.push(product);
+    }
+    else{
+      alert('Sorry that product is out of stock');
+    }
+  }
+
+  isInStock(product) {
+    return product.quantityInStock > 0
   }
 }

@@ -37,14 +37,23 @@ System.register(['angular2/core', './shopping-cart.component', './product.servic
                     this.productsInCart = [];
                 };
                 AppComponent.prototype.addToBasket = function (product) {
-                    this.productsInCart.push(product);
+                    if (this.isInStock(product)) {
+                        this.productsInCart.push(product);
+                    }
+                    else {
+                        alert('Sorry that product is out of stock');
+                    }
+                };
+                AppComponent.prototype.isInStock = function (product) {
+                    return product.quantityInStock > 0;
                 };
                 AppComponent = __decorate([
                     core_1.Component({
                         selector: 'my-app',
                         providers: [product_service_1.ProductService],
                         directives: [shopping_cart_component_1.ShoppingCartComponent],
-                        template: "<h1>{{title}}</h1>\n             <shopping-cart [items]='productsInCart'></shopping-cart>\n             <ul>\n               <li *ngFor='#product of products'>\n                 <h3>Product Details: {{product.name}}</h3>\n                 <p>Price: \u00A3{{product.price}}</p>\n                 <p>Category: {{product.category}}</p>\n                 <p>Quantity In Stock: {{product.quantityInStock}}</p>\n                 <button (click)='addToBasket(product)'>Add To Basket</button>\n               </li>\n             </ul>\n             "
+                        template: "<header><h1>{{title}}</h1></header>\n             <div class='container'>\n               <div class='productsContainer'>\n                 <div class='productContainer' *ngFor='#product of products'>\n                   <h3>{{product.name}}</h3>\n                   <div class='productDetails'>\n                     <p>{{product.category}}</p>\n                     <p>Price: \u00A3{{product.price}}</p>\n                     <p class='red'>{{product.quantityInStock}} In Stock:</p>\n                   </div>\n                   <button (click)='addToBasket(product)'>Add To Basket</button>\n                 </div>\n               </div>\n               <div class='shoppingCartContainer'>\n                <shopping-cart [items]='productsInCart'></shopping-cart>\n               </div>\n             </div>\n             ",
+                        styleUrls: ['app/productsList.css']
                     }), 
                     __metadata('design:paramtypes', [product_service_1.ProductService])
                 ], AppComponent);
