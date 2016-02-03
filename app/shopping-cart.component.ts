@@ -7,10 +7,10 @@ import {Product} from './product';
   template: `<h1>{{title}} {{items.length}}</h1>
              <ul>
                <li *ngFor='#item of items'>
-                 <p>{{item.name}}</p>
+                 <p>{{item.name}}</p> <button (click)='removeFromCart(item)'>Remove From Cart</button>
                </li>
              </ul>
-             <p *ngIf='cartEmpty(items)'>Cart Total: £{{cartTotal(items)}}</p>
+             <p *ngIf='cartEmpty()'>Cart Total: £{{cartTotal()}}</p>
              `
 })
 
@@ -18,15 +18,23 @@ export class ShoppingCartComponent {
   public title = 'Shopping Cart';
   public items: Product[];
 
-  cartEmpty(items) {
-    return items.length > 0;
+  removeFromCart(itemToRemove) {
+    for(var item in this.items){
+      if(itemToRemove.id == this.items[item].id){
+        this.items.splice(item, 1)
+      }
+    };
   }
 
-  cartTotal(items) {
+  cartEmpty() {
+    return this.items.length > 0;
+  }
+
+  cartTotal() {
     var total = 0;
-    for(var i=0; i<items.length; i++){
-      total += items[i].price;
-    }
+    for(var item in this.items){
+      total += this.items[item].price;
+    };
     return total;
   }
 }

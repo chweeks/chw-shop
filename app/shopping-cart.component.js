@@ -20,21 +20,30 @@ System.register(['angular2/core'], function(exports_1) {
                 function ShoppingCartComponent() {
                     this.title = 'Shopping Cart';
                 }
-                ShoppingCartComponent.prototype.cartEmpty = function (items) {
-                    return items.length > 0;
-                };
-                ShoppingCartComponent.prototype.cartTotal = function (items) {
-                    var total = 0;
-                    for (var i = 0; i < items.length; i++) {
-                        total += items[i].price;
+                ShoppingCartComponent.prototype.removeFromCart = function (itemToRemove) {
+                    for (var item in this.items) {
+                        if (itemToRemove.id == this.items[item].id) {
+                            this.items.splice(item, 1);
+                        }
                     }
+                    ;
+                };
+                ShoppingCartComponent.prototype.cartEmpty = function () {
+                    return this.items.length > 0;
+                };
+                ShoppingCartComponent.prototype.cartTotal = function () {
+                    var total = 0;
+                    for (var item in this.items) {
+                        total += this.items[item].price;
+                    }
+                    ;
                     return total;
                 };
                 ShoppingCartComponent = __decorate([
                     core_1.Component({
                         selector: 'shopping-cart',
                         inputs: ['items'],
-                        template: "<h1>{{title}} {{items.length}}</h1>\n             <ul>\n               <li *ngFor='#item of items'>\n                 <p>{{item.name}}</p>\n               </li>\n             </ul>\n             <p *ngIf='cartEmpty(items)'>Cart Total: \u00A3{{cartTotal(items)}}</p>\n             "
+                        template: "<h1>{{title}} {{items.length}}</h1>\n             <ul>\n               <li *ngFor='#item of items'>\n                 <p>{{item.name}}</p> <button (click)='removeFromCart(item)'>Remove From Cart</button>\n               </li>\n             </ul>\n             <p *ngIf='cartEmpty()'>Cart Total: \u00A3{{cartTotal()}}</p>\n             "
                     }), 
                     __metadata('design:paramtypes', [])
                 ], ShoppingCartComponent);
