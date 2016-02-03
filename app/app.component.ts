@@ -1,5 +1,6 @@
 import {Component} from 'angular2/core';
 import {Product} from './product';
+import {ShoppingCartComponent} from './shopping-cart.component'
 import {ProductService} from './product.service';
 import {OnInit} from 'angular2/core';
 
