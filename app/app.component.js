@@ -32,11 +32,14 @@ System.register(['angular2/core', './product.service'], function(exports_1) {
                 AppComponent.prototype.ngOnInit = function () {
                     this.getProducts();
                 };
+                AppComponent.prototype.addToBasket = function (product) {
+                    this.productsInCart.push(product);
+                };
                 AppComponent = __decorate([
                     core_1.Component({
                         selector: 'my-app',
                         providers: [product_service_1.ProductService],
-                        template: "<h1>{{title}}</h1>\n             <ul>\n               <li *ngFor='#product of products'>\n                 <h3>Product Details: {{product.name}}</h3>\n                 <p>Price: \u00A3{{product.price}}</p>\n                 <p>Category: {{product.category}}</p>\n                 <p>Quantity In Stock: {{product.quantityInStock}}</p>\n               </li>\n             </ul>\n             "
+                        template: "<h1>{{title}}</h1>\n             <shopping-cart [items]='productsInCart'></shopping-cart>\n             <ul>\n               <li *ngFor='#product of products'>\n                 <h3>Product Details: {{product.name}}</h3>\n                 <p>Price: \u00A3{{product.price}}</p>\n                 <p>Category: {{product.category}}</p>\n                 <p>Quantity In Stock: {{product.quantityInStock}}</p>\n                 <button (click)='addToBasket(product)'>Add To Basket</button>\n               </li>\n             </ul>\n             "
                     }), 
                     __metadata('design:paramtypes', [product_service_1.ProductService])
                 ], AppComponent);

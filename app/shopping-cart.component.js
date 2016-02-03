@@ -23,7 +23,7 @@ System.register(['angular2/core'], function(exports_1) {
                 ShoppingCartComponent = __decorate([
                     core_1.Component({
                         selector: 'shopping-cart',
-                        inputs: ['productsInCart'],
+                        inputs: ['items'],
                         template: "<h1>Shopping Cart</h1>\n             "
                     }), 
                     __metadata('design:paramtypes', [])

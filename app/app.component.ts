@@ -8,12 +8,14 @@ import {OnInit} from 'angular2/core';
   selector: 'my-app',
   providers: [ProductService],
   template: `<h1>{{title}}</h1>
+             <shopping-cart [items]='productsInCart'></shopping-cart>
              <ul>
                <li *ngFor='#product of products'>
                  <h3>Product Details: {{product.name}}</h3>
                  <p>Price: £{{product.price}}</p>
                  <p>Category: {{product.category}}</p>
                  <p>Quantity In Stock: {{product.quantityInStock}}</p>
+                 <button (click)='addToBasket(product)'>Add To Basket</button>
                </li>
              </ul>
              `
@@ -22,6 +24,7 @@ import {OnInit} from 'angular2/core';
 export class AppComponent implements OnInit {
   public title = 'CHW Shop';
   public products: Product[];
+  public productsInCart: Product[];
 
   constructor(private _productService: ProductService) { };
 
@@ -31,5 +34,9 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.getProducts();
+  }
+
+  addToBasket(product) {
+    this.productsInCart.push(product);
   }
 }
