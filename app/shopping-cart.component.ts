@@ -4,7 +4,7 @@ import {Product} from './product';
 @Component({
   selector: 'shopping-cart',
   inputs: ['items'],
-  template: `<h1>Shopping Cart</h1>
+  template: `<h1>{{title}} {{items.length}}</h1>
              `
 })
 

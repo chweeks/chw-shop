@@ -7,6 +7,7 @@ import {OnInit} from 'angular2/core';
 @Component({
   selector: 'my-app',
   providers: [ProductService],
+  directives: [ShoppingCartComponent],
   template: `<h1>{{title}}</h1>
              <shopping-cart [items]='productsInCart'></shopping-cart>
              <ul>
@@ -34,6 +35,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.getProducts();
+    this.productsInCart = [];
   }
 
   addToBasket(product) {

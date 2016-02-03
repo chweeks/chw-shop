@@ -24,7 +24,7 @@ System.register(['angular2/core'], function(exports_1) {
                     core_1.Component({
                         selector: 'shopping-cart',
                         inputs: ['items'],
-                        template: "<h1>Shopping Cart</h1>\n             "
+                        template: "<h1>{{title}} {{items.length}}</h1>\n             "
                     }), 
                     __metadata('design:paramtypes', [])
                 ], ShoppingCartComponent);
