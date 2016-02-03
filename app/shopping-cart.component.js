@@ -43,7 +43,7 @@ System.register(['angular2/core'], function(exports_1) {
                     core_1.Component({
                         selector: 'shopping-cart',
                         inputs: ['items'],
-                        template: "<h1>{{title}} {{items.length}}</h1>\n             <ul>\n               <li *ngFor='#item of items'>\n                 <p>{{item.name}}</p> <button (click)='removeFromCart(item)'>Remove From Cart</button>\n               </li>\n             </ul>\n             <p *ngIf='cartEmpty()'>Cart Total: \u00A3{{cartTotal()}}</p>\n             "
+                        template: "<h1>{{title}} {{items.length}}</h1>\n             <ul>\n               <li *ngFor='#item of items'>\n                 <p>{{item.name}}</p>\n                 <button (click)='removeFromCart(item)'>\n                   Remove From Cart\n                 </button>\n               </li>\n             </ul>\n             <div *ngIf='cartEmpty()'>\n               <p>Vouchers!</p>\n               <button>\u00A35.00 Off</button>\n               <button>\u00A310.00 Off</button>\n               <button>\u00A315.00 Off</button>\n               <p>Cart Total: \u00A3{{cartTotal()}}</p>\n               <p>Cart Total With Discount: \u00A3</p>\n             </div>\n             "
                     }), 
                     __metadata('design:paramtypes', [])
                 ], ShoppingCartComponent);

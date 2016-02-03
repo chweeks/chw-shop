@@ -7,10 +7,20 @@ import {Product} from './product';
   template: `<h1>{{title}} {{items.length}}</h1>
              <ul>
                <li *ngFor='#item of items'>
-                 <p>{{item.name}}</p> <button (click)='removeFromCart(item)'>Remove From Cart</button>
+                 <p>{{item.name}}</p>
+                 <button (click)='removeFromCart(item)'>
+                   Remove From Cart
+                 </button>
                </li>
              </ul>
-             <p *ngIf='cartEmpty()'>Cart Total: £{{cartTotal()}}</p>
+             <div *ngIf='cartEmpty()'>
+               <p>Vouchers!</p>
+               <button>£5.00 Off</button>
+               <button>£10.00 Off</button>
+               <button>£15.00 Off</button>
+               <p>Cart Total: £{{cartTotal()}}</p>
+               <p>Cart Total With Discount: £</p>
+             </div>
              `
 })
 
