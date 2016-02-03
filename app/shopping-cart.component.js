@@ -28,6 +28,13 @@ System.register(['angular2/core'], function(exports_1) {
                         }
                     }
                     ;
+                    this.resetDiscounts();
+                };
+                ShoppingCartComponent.prototype.resetDiscounts = function () {
+                    this.fivePoundDiscountApplied = false;
+                    this.tenPoundDiscountApplied = false;
+                    this.fifteenPoundDiscountApplied = false;
+                    this.discounts = 0;
                 };
                 ShoppingCartComponent.prototype.cartEmpty = function () {
                     return this.items.length > 0;
@@ -41,17 +48,52 @@ System.register(['angular2/core'], function(exports_1) {
                     this.total -= this.discounts;
                     return this.total;
                 };
-                ShoppingCartComponent.prototype.applyDiscount = function (ammount) {
-                    this.discounts += ammount;
+                ShoppingCartComponent.prototype.hasBought = function (string) {
+                    for (var item in this.items) {
+                        return this.items[item].category.indexOf(string) >= 0;
+                    }
+                };
+                ShoppingCartComponent.prototype.tenPoundDiscountIsApplicable = function () {
+                    return this.total > 50;
+                };
+                ShoppingCartComponent.prototype.fifteenPoundDiscountIsApplicable = function () {
+                    return this.total > 75 && this.hasBought('Footwear');
+                };
+                ShoppingCartComponent.prototype.apply5PoundDiscount = function () {
+                    this.fivePoundDiscountApplied = true;
+                    this.discounts += 5;
+                };
+                ShoppingCartComponent.prototype.apply10PoundDiscount = function () {
+                    if (this.tenPoundDiscountIsApplicable()) {
+                        this.tenPoundDiscountApplied = true;
+                        this.discounts += 10;
+                    }
+                    else {
+                        alert('You do not qualify for this discount');
+                    }
+                    ;
+                };
+                ShoppingCartComponent.prototype.apply15PoundDiscount = function () {
+                    if (this.fifteenPoundDiscountIsApplicable()) {
+                        this.fifteenPoundDiscountApplied = true;
+                        this.discounts += 15;
+                    }
+                    else {
+                        alert('You do not qualify for this discount');
+                    }
+                    ;
                 };
                 ShoppingCartComponent.prototype.discountsApplied = function () {
                     return this.discounts > 0;
+                };
+                ShoppingCartComponent.prototype.allDiscountsApplied = function () {
+                    return this.fivePoundDiscountApplied && this.tenPoundDiscountApplied && this.fifteenPoundDiscountApplied;
                 };
                 ShoppingCartComponent = __decorate([
                     core_1.Component({
                         selector: 'shopping-cart',
                         inputs: ['items'],
-                        template: "<h1>{{title}} {{items.length}}</h1>\n             <ul>\n               <li *ngFor='#item of items'>\n                 <p>{{item.name}}</p>\n                 <button (click)='removeFromCart(item)'>\n                   Remove From Cart\n                 </button>\n               </li>\n             </ul>\n             <div *ngIf='cartEmpty()'>\n               <p>Vouchers!</p>\n               <button (click)='applyDiscount(5)'>\u00A35.00 Off</button>\n               <button (click)='applyDiscount(10)'>\u00A310.00 Off</button>\n               <button (click)='applyDiscount(15)'>\u00A315.00 Off</button>\n               <p>Cart Total <span *ngIf='discountsApplied()'>With Discount</span>: \u00A3{{cartTotal()}}</p>\n             </div>\n             "
+                        template: "<h1>{{title}} {{items.length}}</h1>\n             <ul>\n               <li *ngFor='#item of items'>\n                 <p>{{item.name}}</p>\n                 <button (click)='removeFromCart(item)'>\n                   Remove From Cart\n                 </button>\n               </li>\n             </ul>\n             <div *ngIf='cartEmpty()'>\n               <p *ngIf!='allDiscountsApplied()'>Vouchers!</p>\n               <button *ngIf!='fivePoundDiscountApplied' (click)='apply5PoundDiscount()'>\u00A35.00 Off</button>\n               <button *ngIf!='tenPoundDiscountApplied' (click)='apply10PoundDiscount()'>\u00A310.00 Off</button>\n               <button *ngIf!='fifteenPoundDiscountApplied' (click)='apply15PoundDiscount()'>\u00A315.00 Off</button>\n               <p>Cart Total <span *ngIf='discountsApplied()'>With Discount</span>: \u00A3{{cartTotal()}}</p>\n             </div>\n            "
                     }), 
                     __metadata('design:paramtypes', [])
                 ], ShoppingCartComponent);

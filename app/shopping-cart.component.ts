@@ -14,13 +14,13 @@ import {Product} from './product';
                </li>
              </ul>
              <div *ngIf='cartEmpty()'>
-               <p>Vouchers!</p>
-               <button (click)='applyDiscount(5)'>£5.00 Off</button>
-               <button (click)='applyDiscount(10)'>£10.00 Off</button>
-               <button (click)='applyDiscount(15)'>£15.00 Off</button>
+               <p *ngIf!='allDiscountsApplied()'>Vouchers!</p>
+               <button *ngIf!='fivePoundDiscountApplied' (click)='apply5PoundDiscount()'>£5.00 Off</button>
+               <button *ngIf!='tenPoundDiscountApplied' (click)='apply10PoundDiscount()'>£10.00 Off</button>
+               <button *ngIf!='fifteenPoundDiscountApplied' (click)='apply15PoundDiscount()'>£15.00 Off</button>
                <p>Cart Total <span *ngIf='discountsApplied()'>With Discount</span>: £{{cartTotal()}}</p>
              </div>
-             `
+            `
 })
 
 export class ShoppingCartComponent {
@@ -28,6 +28,9 @@ export class ShoppingCartComponent {
   public items: Product[];
   public total: number;
   public discounts: number = 0;
+  public fivePoundDiscountApplied: boolean;
+  public tenPoundDiscountApplied: boolean;
+  public fifteenPoundDiscountApplied: boolean;
 
   removeFromCart(itemToRemove) {
     for(var item in this.items){
@@ -35,6 +38,14 @@ export class ShoppingCartComponent {
         this.items.splice(item, 1)
       }
     };
+    this.resetDiscounts();
+  }
+
+  resetDiscounts() {
+    this.fivePoundDiscountApplied = false;
+    this.tenPoundDiscountApplied = false;
+    this.fifteenPoundDiscountApplied = false;
+    this.discounts = 0;
   }
 
   cartEmpty() {
@@ -50,11 +61,48 @@ export class ShoppingCartComponent {
     return this.total;
   }
 
-  applyDiscount(ammount) {
-    this.discounts += ammount;
+  hasBought(string){
+    for(var item in this.items){
+      return this.items[item].category.indexOf(string) >= 0
+    }
+  }
+
+  tenPoundDiscountIsApplicable() {
+    return this.total > 50
+  }
+
+  fifteenPoundDiscountIsApplicable() {
+    return this.total > 75 && this.hasBought('Footwear');
+  }
+
+  apply5PoundDiscount() {
+    this.fivePoundDiscountApplied = true;
+    this.discounts += 5;
+  }
+
+  apply10PoundDiscount() {
+    if(this.tenPoundDiscountIsApplicable()) {
+      this.tenPoundDiscountApplied = true;
+      this.discounts += 10;
+    }else {
+      alert('You do not qualify for this discount')
+    };
+  }
+
+  apply15PoundDiscount() {
+    if(this.fifteenPoundDiscountIsApplicable()) {
+      this.fifteenPoundDiscountApplied = true;
+      this.discounts += 15;
+    }else {
+      alert('You do not qualify for this discount')
+    };
   }
 
   discountsApplied() {
     return this.discounts > 0;
+  }
+
+  allDiscountsApplied() {
+    return this.fivePoundDiscountApplied && this.tenPoundDiscountApplied && this.fifteenPoundDiscountApplied
   }
 }
