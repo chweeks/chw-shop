@@ -19,6 +19,7 @@ System.register(['angular2/core'], function(exports_1) {
             ShoppingCartComponent = (function () {
                 function ShoppingCartComponent() {
                     this.title = 'Shopping Cart';
+                    this.discounts = 0;
                 }
                 ShoppingCartComponent.prototype.removeFromCart = function (itemToRemove) {
                     for (var item in this.items) {
@@ -32,18 +33,25 @@ System.register(['angular2/core'], function(exports_1) {
                     return this.items.length > 0;
                 };
                 ShoppingCartComponent.prototype.cartTotal = function () {
-                    var total = 0;
+                    this.total = 0;
                     for (var item in this.items) {
-                        total += this.items[item].price;
+                        this.total += this.items[item].price;
                     }
                     ;
-                    return total;
+                    this.total -= this.discounts;
+                    return this.total;
+                };
+                ShoppingCartComponent.prototype.applyDiscount = function (ammount) {
+                    this.discounts += ammount;
+                };
+                ShoppingCartComponent.prototype.discountsApplied = function () {
+                    return this.discounts > 0;
                 };
                 ShoppingCartComponent = __decorate([
                     core_1.Component({
                         selector: 'shopping-cart',
                         inputs: ['items'],
-                        template: "<h1>{{title}} {{items.length}}</h1>\n             <ul>\n               <li *ngFor='#item of items'>\n                 <p>{{item.name}}</p>\n                 <button (click)='removeFromCart(item)'>\n                   Remove From Cart\n                 </button>\n               </li>\n             </ul>\n             <div *ngIf='cartEmpty()'>\n               <p>Vouchers!</p>\n               <button>\u00A35.00 Off</button>\n               <button>\u00A310.00 Off</button>\n               <button>\u00A315.00 Off</button>\n               <p>Cart Total: \u00A3{{cartTotal()}}</p>\n               <p>Cart Total With Discount: \u00A3</p>\n             </div>\n             "
+                        template: "<h1>{{title}} {{items.length}}</h1>\n             <ul>\n               <li *ngFor='#item of items'>\n                 <p>{{item.name}}</p>\n                 <button (click)='removeFromCart(item)'>\n                   Remove From Cart\n                 </button>\n               </li>\n             </ul>\n             <div *ngIf='cartEmpty()'>\n               <p>Vouchers!</p>\n               <button (click)='applyDiscount(5)'>\u00A35.00 Off</button>\n               <button (click)='applyDiscount(10)'>\u00A310.00 Off</button>\n               <button (click)='applyDiscount(15)'>\u00A315.00 Off</button>\n               <p>Cart Total <span *ngIf='discountsApplied()'>With Discount</span>: \u00A3{{cartTotal()}}</p>\n             </div>\n             "
                     }), 
                     __metadata('design:paramtypes', [])
                 ], ShoppingCartComponent);

@@ -15,11 +15,10 @@ import {Product} from './product';
              </ul>
              <div *ngIf='cartEmpty()'>
                <p>Vouchers!</p>
-               <button>£5.00 Off</button>
-               <button>£10.00 Off</button>
-               <button>£15.00 Off</button>
-               <p>Cart Total: £{{cartTotal()}}</p>
-               <p>Cart Total With Discount: £</p>
+               <button (click)='applyDiscount(5)'>£5.00 Off</button>
+               <button (click)='applyDiscount(10)'>£10.00 Off</button>
+               <button (click)='applyDiscount(15)'>£15.00 Off</button>
+               <p>Cart Total <span *ngIf='discountsApplied()'>With Discount</span>: £{{cartTotal()}}</p>
              </div>
              `
 })
@@ -27,6 +26,8 @@ import {Product} from './product';
 export class ShoppingCartComponent {
   public title = 'Shopping Cart';
   public items: Product[];
+  public total: number;
+  public discounts: number = 0;
 
   removeFromCart(itemToRemove) {
     for(var item in this.items){
@@ -41,10 +42,19 @@ export class ShoppingCartComponent {
   }
 
   cartTotal() {
-    var total = 0;
+    this.total = 0;
     for(var item in this.items){
-      total += this.items[item].price;
+      this.total += this.items[item].price;
     };
-    return total;
+    this.total -= this.discounts;
+    return this.total;
+  }
+
+  applyDiscount(ammount) {
+    this.discounts += ammount;
+  }
+
+  discountsApplied() {
+    return this.discounts > 0;
   }
 }
