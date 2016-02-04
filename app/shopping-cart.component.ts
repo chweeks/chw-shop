@@ -7,7 +7,7 @@ import {Product} from './product';
   template: `<h2>{{title}}</h2>
              <p class='red' *ngIf='cartEmpty()'>Empty</p>
              <div class='itemInCart' *ngFor='#item of items'>
-               <span>{{item.name}}: £{{item.price}}</span>
+               <span>{{item.name}}: <span class='price'>£{{item.price}}</span></span>
                <span>
                  <button class='removeButton' (click)='removeFromCart(item)'>
                    x
@@ -19,7 +19,7 @@ import {Product} from './product';
                <button *ngIf!='fivePoundDiscountApplied' (click)='apply5PoundDiscount()'>£5.00 Off</button>
                <button *ngIf!='tenPoundDiscountApplied' (click)='apply10PoundDiscount()'>£10.00 Off</button>
                <button *ngIf!='fifteenPoundDiscountApplied' (click)='apply15PoundDiscount()'>£15.00 Off</button>
-               <p class='total'>Cart Total <span *ngIf='discountsApplied()'>With Discount</span>: £{{cartTotal()}}</p>
+               <p class='price'>Cart Total <span *ngIf='discountsApplied()'>With Discount</span>: £{{cartTotal()}}</p>
              </div>
             `
   styleUrls: ['app/shopping-cart.css']

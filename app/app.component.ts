@@ -15,7 +15,7 @@ import {OnInit} from 'angular2/core';
                    <h3>{{product.name}}</h3>
                    <div class='productDetails'>
                      <p>{{product.category}}</p>
-                     <p>Price: £{{product.price}}</p>
+                     <p class='price'>Price: £{{product.price}}</p>
                      <p class='red'>{{product.quantityInStock}} In Stock:</p>
                    </div>
                    <button (click)='addToBasket(product)'>Add To Basket</button>
