@@ -5,22 +5,24 @@ import {Product} from './product';
   selector: 'shopping-cart',
   inputs: ['items'],
   template: `<h2>{{title}}</h2>
-             <ul>
-               <li *ngFor='#item of items'>
-                 <p>{{item.name}}</p>
-                 <button (click)='removeFromCart(item)'>
-                   Remove From Cart
+             <p class='red' *ngIf='cartEmpty()'>Empty</p>
+             <div class='itemInCart' *ngFor='#item of items'>
+               <span>{{item.name}}: £{{item.price}}</span>
+               <span>
+                 <button class='removeButton' (click)='removeFromCart(item)'>
+                   x
                  </button>
-               </li>
-             </ul>
-             <div *ngIf='cartEmpty()'>
+               </span>
+             </div>
+             <div *ngIf!='cartEmpty()'>
                <p *ngIf!='allDiscountsApplied()'>Vouchers!</p>
                <button *ngIf!='fivePoundDiscountApplied' (click)='apply5PoundDiscount()'>£5.00 Off</button>
                <button *ngIf!='tenPoundDiscountApplied' (click)='apply10PoundDiscount()'>£10.00 Off</button>
                <button *ngIf!='fifteenPoundDiscountApplied' (click)='apply15PoundDiscount()'>£15.00 Off</button>
-               <p>Cart Total <span *ngIf='discountsApplied()'>With Discount</span>: £{{cartTotal()}}</p>
+               <p class='total'>Cart Total <span *ngIf='discountsApplied()'>With Discount</span>: £{{cartTotal()}}</p>
              </div>
             `
+  styleUrls: ['app/shopping-cart.css']
 })
 
 export class ShoppingCartComponent {
@@ -49,7 +51,7 @@ export class ShoppingCartComponent {
   }
 
   cartEmpty() {
-    return this.items.length > 0;
+    return this.items.length == 0;
   }
 
   cartTotal() {
@@ -58,7 +60,7 @@ export class ShoppingCartComponent {
       this.total += this.items[item].price;
     };
     this.total -= this.discounts;
-    return this.total;
+    return this.total.toFixed(2);
   }
 
   hasBought(string){

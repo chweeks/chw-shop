@@ -1,0 +1,16 @@
+.itemInCart {
+  margin-bottom: 5%;
+}
+
+.removeButton {
+  color: white;
+  background-color: red;
+}
+
+.red {
+  color: red;
+}
+
+.total {
+  font-weight: bold;
+}

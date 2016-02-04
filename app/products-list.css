@@ -1,32 +1,44 @@
 header {
+  font-family: 'Slabo 27px', serif;
   width: 100%;
   text-align: center;
 }
 
 .container{
+  font-family: 'Slabo 27px', serif;
   margin-left: 10%;
   margin-right: 10%;
   display: flex;
 }
 
 .shoppingCartContainer {
+  position: fixed;
+  font-family: 'Slabo 27px', serif;
   width: 30%;
+  border-radius: 10px;
   text-align: center;
+  vertical-align: top;
   display:inline-block;
+  background-color: #B3F1FA;
 }
 
 .productsContainer {
   width: 70%;
   display: inline-block;
+  vertical-align: top;
 }
 
 .productContainer {
   width: 20%;
   height: 35%;
-  margin: 1%;
+  border-radius: 10px;
+  margin-left: 1%;
+  margin-right: 1%;
+  margin-bottom: 2%;
   vertical-align: top;
   display: inline-block;
   position: relative;
+  background-color: #B3F1FA;
 }
 
 .productDetails {
@@ -48,5 +60,5 @@ header {
   position: absolute;
   width: 60%;
   left: 20%;
-  bottom: 0;
+  bottom: 10%;
 }

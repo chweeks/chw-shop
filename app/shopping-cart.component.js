@@ -37,7 +37,7 @@ System.register(['angular2/core'], function(exports_1) {
                     this.discounts = 0;
                 };
                 ShoppingCartComponent.prototype.cartEmpty = function () {
-                    return this.items.length > 0;
+                    return this.items.length == 0;
                 };
                 ShoppingCartComponent.prototype.cartTotal = function () {
                     this.total = 0;
@@ -46,7 +46,7 @@ System.register(['angular2/core'], function(exports_1) {
                     }
                     ;
                     this.total -= this.discounts;
-                    return this.total;
+                    return this.total.toFixed(2);
                 };
                 ShoppingCartComponent.prototype.hasBought = function (string) {
                     for (var item in this.items) {
@@ -93,7 +93,8 @@ System.register(['angular2/core'], function(exports_1) {
                     core_1.Component({
                         selector: 'shopping-cart',
                         inputs: ['items'],
-                        template: "<h2>{{title}}</h2>\n             <ul>\n               <li *ngFor='#item of items'>\n                 <p>{{item.name}}</p>\n                 <button (click)='removeFromCart(item)'>\n                   Remove From Cart\n                 </button>\n               </li>\n             </ul>\n             <div *ngIf='cartEmpty()'>\n               <p *ngIf!='allDiscountsApplied()'>Vouchers!</p>\n               <button *ngIf!='fivePoundDiscountApplied' (click)='apply5PoundDiscount()'>\u00A35.00 Off</button>\n               <button *ngIf!='tenPoundDiscountApplied' (click)='apply10PoundDiscount()'>\u00A310.00 Off</button>\n               <button *ngIf!='fifteenPoundDiscountApplied' (click)='apply15PoundDiscount()'>\u00A315.00 Off</button>\n               <p>Cart Total <span *ngIf='discountsApplied()'>With Discount</span>: \u00A3{{cartTotal()}}</p>\n             </div>\n            "
+                        template: "<h2>{{title}}</h2>\n             <p class='red' *ngIf='cartEmpty()'>Empty</p>\n             <div class='itemInCart' *ngFor='#item of items'>\n               <span>{{item.name}}: \u00A3{{item.price}}</span>\n               <span>\n                 <button class='removeButton' (click)='removeFromCart(item)'>\n                   x\n                 </button>\n               </span>\n             </div>\n             <div *ngIf!='cartEmpty()'>\n               <p *ngIf!='allDiscountsApplied()'>Vouchers!</p>\n               <button *ngIf!='fivePoundDiscountApplied' (click)='apply5PoundDiscount()'>\u00A35.00 Off</button>\n               <button *ngIf!='tenPoundDiscountApplied' (click)='apply10PoundDiscount()'>\u00A310.00 Off</button>\n               <button *ngIf!='fifteenPoundDiscountApplied' (click)='apply15PoundDiscount()'>\u00A315.00 Off</button>\n               <p class='total'>Cart Total <span *ngIf='discountsApplied()'>With Discount</span>: \u00A3{{cartTotal()}}</p>\n             </div>\n            ",
+                        styleUrls: ['app/shopping-cart.css']
                     }), 
                     __metadata('design:paramtypes', [])
                 ], ShoppingCartComponent);

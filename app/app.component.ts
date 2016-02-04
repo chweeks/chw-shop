@@ -26,11 +26,11 @@ import {OnInit} from 'angular2/core';
                </div>
              </div>
              `,
-  styleUrls: ['app/productsList.css']
+  styleUrls: ['app/products-list.css']
 })
 
 export class AppComponent implements OnInit {
-  public title = 'CHW Shop';
+  public title = 'Chris, Harry & Weeks Clothing';
   public products: Product[];
   public productsInCart: Product[];
 
