@@ -59,8 +59,12 @@ export class ShoppingCartComponent {
     for(var item in this.items){
       this.total += this.items[item].price;
     };
-    this.total -= this.discounts;
+    this.applyDiscounts();
     return this.total.toFixed(2);
+  }
+
+  applyDiscounts() {
+    this.total -= this.discounts;
   }
 
   hasBought(string){
