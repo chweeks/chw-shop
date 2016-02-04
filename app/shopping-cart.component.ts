@@ -21,7 +21,7 @@ import {Product} from './product';
                <button *ngIf!='fifteenPoundDiscountApplied' (click)='apply15PoundDiscount()'>£15.00 Off</button>
                <p class='price'>Cart Total <span *ngIf='discountsApplied()'>With Discount</span>: £{{cartTotal()}}</p>
              </div>
-            `
+            `,
   styleUrls: ['app/shopping-cart.css']
 })
 
