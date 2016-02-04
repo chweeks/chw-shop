@@ -19,7 +19,7 @@ import {Product} from './product';
                <button *ngIf!='fivePoundDiscountApplied' (click)='apply5PoundDiscount()'>£5.00 Off</button>
                <button *ngIf!='tenPoundDiscountApplied' (click)='apply10PoundDiscount()'>£10.00 Off</button>
                <button *ngIf!='fifteenPoundDiscountApplied' (click)='apply15PoundDiscount()'>£15.00 Off</button>
-               <p class='price'>Cart Total <span *ngIf='discountsApplied()'>With Discount</span>: £{{cartTotal()}}</p>
+               <p class='price'>Cart Total <span *ngIf='discountApplied()'>With Discount</span>: £{{cartTotal()}}</p>
              </div>
             `,
   styleUrls: ['app/shopping-cart.css']
@@ -81,6 +81,10 @@ export class ShoppingCartComponent {
     return this.total > 75 && this.hasBought('Footwear');
   }
 
+  invalidVoucher() {
+    alert('You do not qualify for this discount');
+  }
+
   apply5PoundDiscount() {
     this.fivePoundDiscountApplied = true;
     this.discounts += 5;
@@ -92,7 +96,7 @@ export class ShoppingCartComponent {
       this.discounts += 10;
     }
     else {
-      alert('You do not qualify for this discount')
+      this.invalidVoucher();
     };
   }
 
@@ -102,15 +106,15 @@ export class ShoppingCartComponent {
       this.discounts += 15;
     }
     else {
-      alert('You do not qualify for this discount')
+      this.invalidVoucher();
     };
   }
 
-  discountsApplied() {
+  discountApplied() {
     return this.discounts > 0;
   }
 
   allDiscountsApplied() {
-    return this.fivePoundDiscountApplied && this.tenPoundDiscountApplied && this.fifteenPoundDiscountApplied
+    return this.fivePoundDiscountApplied && this.tenPoundDiscountApplied && this.fifteenPoundDiscountApplied;
   }
 }

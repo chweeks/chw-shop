@@ -66,4 +66,78 @@ describe('Shopping Cart Component', () => {
       expect(shoppingCart.applyDiscounts).toHaveBeenCalled();
     }));
   });
+
+  describe('#hasBought', () => {
+    it('returns true if item has been bought', inject([ShoppingCartComponent], (shoppingCart) => {
+      shoppingCart.items = [{'category': 'crocs', id:1}];
+      expect(shoppingCart.hasBought('crocs')).toBe(true);
+    })
+  })
+
+  describe('#tenPoundDiscountIsApplicable', () => {
+    it('returns true if discount is applicable', inject([ShoppingCartComponent], (shoppingCart) => {
+      shoppingCart.total = 49;
+      expect(shoppingCart.tenPoundDiscountIsApplicable()).toBe(false);
+      shoppingCart.total = 51;
+      expect(shoppingCart.tenPoundDiscountIsApplicable()).toBe(true);
+    })
+  })
+
+  describe('#fifteenPoundDiscountIsApplicable', () => {
+    it('returns true if discount is applicable', inject([ShoppingCartComponent], (shoppingCart) => {
+      shoppingCart.total = 76;
+      spyOn(shoppingCart, 'hasBought').and.returnValue(true);
+      expect(shoppingCart.fifteenPoundDiscountIsApplicable()).toBe(true);
+    })
+  })
+
+  describe('#apply5PoundDiscount', () => {
+    it('applies 5 pound discount', inject([ShoppingCartComponent], (shoppingCart) => {
+      shoppingCart.apply5PoundDiscount();
+      expect(shoppingCart.fivePoundDiscountApplied).toBe(true);
+      expect(shoppingCart.discounts).toBe(5);
+    })
+  })
+
+  describe('#apply10PoundDiscount', () => {
+    it('applies 10 pound discount', inject([ShoppingCartComponent], (shoppingCart) => {
+      spyOn(shoppingCart, 'tenPoundDiscountIsApplicable').and.returnValue(true);
+      shoppingCart.apply10PoundDiscount();
+      expect(shoppingCart.tenPoundDiscountApplied).toBe(true);
+      expect(shoppingCart.discounts).toBe(10);
+    })
+  })
+
+  describe('#apply15PoundDiscount', () => {
+    it('applies 15 pound discount', inject([ShoppingCartComponent], (shoppingCart) => {
+      spyOn(shoppingCart, 'fifteenPoundDiscountIsApplicable').and.returnValue(true);
+      shoppingCart.apply15PoundDiscount();
+      expect(shoppingCart.fifteenPoundDiscountApplied).toBe(true);
+      expect(shoppingCart.discounts).toBe(15);
+    })
+  })
+
+  describe('#invalidVoucher', () => {
+    it('alert displayed if invalid voucher', inject([ShoppingCartComponent], (shoppingCart) => {
+      spyOn(shoppingCart, 'invalidVoucher');
+      shoppingCart.apply15PoundDiscount();
+      expect(shoppingCart.invalidVoucher).toHaveBeenCalled;
+    })
+  })
+
+  describe('#discountApplied', () => {
+    it('returns true if a voucher has been used', inject([ShoppingCartComponent], (shoppingCart) => {
+      shoppingCart.discounts = 1;
+      expect(shoppingCart.discountApplied()).toBe(true);
+    })
+  })
+
+  describe('#allDiscountsApplied', () => {
+    it('returns true if all vouchers used', inject([ShoppingCartComponent], (shoppingCart) => {
+      shoppingCart.fivePoundDiscountApplied = true;
+      shoppingCart.tenPoundDiscountApplied = true;
+      shoppingCart.fifteenPoundDiscountApplied = true;
+      expect(shoppingCart.allDiscountsApplied()).toBe(true);
+    })
+  })
 });
