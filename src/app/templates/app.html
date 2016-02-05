@@ -1,0 +1,17 @@
+<header><h1>{{title}}</h1></header>
+<div class='container'>
+  <div class='productsContainer'>
+    <div class='productContainer' *ngFor='#product of products'>
+      <h3>{{product.name}}</h3>
+      <div class='productDetails'>
+        <p>{{product.category}}</p>
+        <p class='price'>Price: £{{product.price}}</p>
+        <p class='red'>{{product.quantityInStock}} In Stock:</p>
+      </div>
+      <button (click)='addToCart(product)'>Add To Basket</button>
+    </div>
+  </div>
+  <div class='shoppingCartContainer'>
+    <shopping-cart [items]='productsInCart'></shopping-cart>
+  </div>
+</div>

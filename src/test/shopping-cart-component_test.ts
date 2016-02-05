@@ -12,7 +12,7 @@ import {
   tick
 } from 'angular2/testing';
 
-import { ShoppingCartComponent } from '../app/shopping-cart.component';
+import { ShoppingCartComponent } from '../app/components/shopping-cart.component';
 
 describe('Shopping Cart Component', () => {
   beforeEachProviders(() => [
@@ -71,34 +71,35 @@ describe('Shopping Cart Component', () => {
     it('returns true if item has been bought', inject([ShoppingCartComponent], (shoppingCart) => {
       shoppingCart.items = [{'category': 'crocs', id:1}];
       expect(shoppingCart.hasBought('crocs')).toBe(true);
-    })
-  })
+    }));
+  });
 
   describe('#tenPoundDiscountIsApplicable', () => {
     it('returns true if discount is applicable', inject([ShoppingCartComponent], (shoppingCart) => {
       shoppingCart.total = 51;
       expect(shoppingCart.tenPoundDiscountIsApplicable()).toBe(true);
-    })
+    }));
     it('returns false if discount is not applicable', inject([ShoppingCartComponent], (shoppingCart) => {
       shoppingCart.total = 49;
       expect(shoppingCart.tenPoundDiscountIsApplicable()).toBe(false);
-  })
+    }));
+  });
 
   describe('#fifteenPoundDiscountIsApplicable', () => {
     it('returns true if discount is applicable', inject([ShoppingCartComponent], (shoppingCart) => {
       shoppingCart.total = 76;
       spyOn(shoppingCart, 'hasBought').and.returnValue(true);
       expect(shoppingCart.fifteenPoundDiscountIsApplicable()).toBe(true);
-    })
-  })
+    }));
+  });
 
   describe('#apply5PoundDiscount', () => {
     it('applies 5 pound discount', inject([ShoppingCartComponent], (shoppingCart) => {
       shoppingCart.apply5PoundDiscount();
       expect(shoppingCart.fivePoundDiscountApplied).toBe(true);
       expect(shoppingCart.discounts).toBe(5);
-    })
-  })
+    }));
+  });
 
   describe('#apply10PoundDiscount', () => {
     it('applies 10 pound discount', inject([ShoppingCartComponent], (shoppingCart) => {
@@ -106,8 +107,8 @@ describe('Shopping Cart Component', () => {
       shoppingCart.apply10PoundDiscount();
       expect(shoppingCart.tenPoundDiscountApplied).toBe(true);
       expect(shoppingCart.discounts).toBe(10);
-    })
-  })
+    }));
+  });
 
   describe('#apply15PoundDiscount', () => {
     it('applies 15 pound discount', inject([ShoppingCartComponent], (shoppingCart) => {
@@ -115,23 +116,23 @@ describe('Shopping Cart Component', () => {
       shoppingCart.apply15PoundDiscount();
       expect(shoppingCart.fifteenPoundDiscountApplied).toBe(true);
       expect(shoppingCart.discounts).toBe(15);
-    })
-  })
+    }));
+  });
 
   describe('#invalidVoucher', () => {
     it('alert displayed if invalid voucher', inject([ShoppingCartComponent], (shoppingCart) => {
       spyOn(window, 'alert');
       shoppingCart.apply15PoundDiscount();
       expect(window.alert).toHaveBeenCalledWith('You do not qualify for this discount');
-    })
-  })
+    }));
+  });
 
   describe('#discountApplied', () => {
     it('returns true if a voucher has been used', inject([ShoppingCartComponent], (shoppingCart) => {
       shoppingCart.discounts = 1;
       expect(shoppingCart.discountApplied()).toBe(true);
-    })
-  })
+    }));
+  });
 
   describe('#allDiscountsApplied', () => {
     it('returns true if all vouchers used', inject([ShoppingCartComponent], (shoppingCart) => {
@@ -139,6 +140,6 @@ describe('Shopping Cart Component', () => {
       shoppingCart.tenPoundDiscountApplied = true;
       shoppingCart.fifteenPoundDiscountApplied = true;
       expect(shoppingCart.allDiscountsApplied()).toBe(true);
-    })
-  })
+    }));
+  });
 });

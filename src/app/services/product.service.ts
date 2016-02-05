@@ -1,4 +1,4 @@
-import {PRODUCTS} from './mock-products';
+import {PRODUCTS} from '../mocks/mock-products';
 import {Injectable} from 'angular2/core'
 
 @Injectable()

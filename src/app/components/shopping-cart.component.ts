@@ -1,28 +1,11 @@
 import {Component} from 'angular2/core';
-import {Product} from './product';
+import {Product} from '../product';
 
 @Component({
   selector: 'shopping-cart',
   inputs: ['items'],
-  template: `<h2>{{title}}</h2>
-             <p class='red' *ngIf='cartEmpty()'>Empty</p>
-             <div class='itemInCart' *ngFor='#item of items'>
-               <span>{{item.name}}: <span class='price'>£{{item.price}}</span></span>
-               <span>
-                 <button class='removeButton' (click)='removeFromCart(item)'>
-                   x
-                 </button>
-               </span>
-             </div>
-             <div *ngIf!='cartEmpty()'>
-               <p *ngIf!='allDiscountsApplied()'>Vouchers!</p>
-               <button *ngIf!='fivePoundDiscountApplied' (click)='apply5PoundDiscount()'>£5.00 Off</button>
-               <button *ngIf!='tenPoundDiscountApplied' (click)='apply10PoundDiscount()'>£10.00 Off</button>
-               <button *ngIf!='fifteenPoundDiscountApplied' (click)='apply15PoundDiscount()'>£15.00 Off</button>
-               <p class='price'>Cart Total <span *ngIf='discountApplied()'>With Discount</span>: £{{cartTotal()}}</p>
-             </div>
-            `,
-  styleUrls: ['app/shopping-cart.css']
+  templateUrl: 'app/templates/shopping-cart.html',
+  styleUrls: ['app/styles/shopping-cart.css']
 })
 
 export class ShoppingCartComponent {
@@ -35,7 +18,7 @@ export class ShoppingCartComponent {
   public fifteenPoundDiscountApplied: boolean;
 
   removeFromCart(itemToRemove) {
-    for(var item in this.items){
+    for(let item in this.items){
       if(itemToRemove.id == this.items[item].id){
         this.items.splice(item, 1)
       }
@@ -56,7 +39,7 @@ export class ShoppingCartComponent {
 
   cartTotal() {
     this.total = 0;
-    for(var item in this.items){
+    for(let item in this.items){
       this.total += this.items[item].price;
     };
     this.applyDiscounts();
@@ -68,7 +51,7 @@ export class ShoppingCartComponent {
   }
 
   hasBought(string){
-    for(var item in this.items){
+    for(let item in this.items){
       return this.items[item].category.indexOf(string) >= 0
     }
   }

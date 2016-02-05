@@ -1,0 +1,27 @@
+<h2>{{title}}</h2>
+<p class='red' *ngIf='cartEmpty()'>Empty</p>
+<div class='itemInCart' *ngFor='#item of items'>
+  <span>{{item.name}}: <span class='price'>£{{item.price}}</span></span>
+  <span>
+    <button class='removeButton' (click)='removeFromCart(item)'>
+      x
+    </button>
+  </span>
+</div>
+<div *ngIf!='cartEmpty()'>
+<p *ngIf!='allDiscountsApplied()'>Vouchers!</p>
+  <button class='voucherBtn' *ngIf!='fivePoundDiscountApplied' (click)='apply5PoundDiscount()'>
+    £5.00 Off
+  </button>
+  <button class='voucherBtn' *ngIf!='tenPoundDiscountApplied' (click)='apply10PoundDiscount()'>
+    £10.00 Off
+  </button>
+  <button class='voucherBtn' *ngIf!='fifteenPoundDiscountApplied' (click)='apply15PoundDiscount()'>
+    £15.00 Off
+  </button>
+  <p class='price'>
+    Cart Total
+    <span *ngIf='discountApplied()'>With Discount</span>
+    : £{{cartTotal()}}
+  </p>
+</div>

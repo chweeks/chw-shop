@@ -2,8 +2,7 @@
   "name": "chwShop",
   "version": "1.0.0",
   "scripts": {
-    "clean": "rimraf src/**/*.js src/**/*.js.map",
-    "tsc": "tsc",
+    "clean": "rimraf src/**/*.js src/**/*.js.map src/**/**/*.js src/**/**/*.js.map",
     "tsc:w": "tsc -w",
     "serve": "live-server --open=src/index.html",
     "start": "concurrent \"npm run tsc:w\" \"npm run serve\" ",
