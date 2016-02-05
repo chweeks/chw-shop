@@ -18,7 +18,7 @@ import {OnInit} from 'angular2/core';
                      <p class='price'>Price: £{{product.price}}</p>
                      <p class='red'>{{product.quantityInStock}} In Stock:</p>
                    </div>
-                   <button (click)='addToBasket(product)'>Add To Basket</button>
+                   <button (click)='addToCart(product)'>Add To Basket</button>
                  </div>
                </div>
                <div class='shoppingCartContainer'>
@@ -45,16 +45,20 @@ export class AppComponent implements OnInit {
     this.productsInCart = [];
   }
 
-  addToBasket(product) {
+  addToCart(product) {
     if(this.isInStock(product)){
       this.productsInCart.push(product);
     }
     else{
-      alert('Sorry that product is out of stock');
+      this.outOfStock();
     }
   }
 
   isInStock(product) {
     return product.quantityInStock > 0
+  }
+
+  outOfStock() {
+    alert('Sorry that product is out of stock');
   }
 }

@@ -76,11 +76,12 @@ describe('Shopping Cart Component', () => {
 
   describe('#tenPoundDiscountIsApplicable', () => {
     it('returns true if discount is applicable', inject([ShoppingCartComponent], (shoppingCart) => {
-      shoppingCart.total = 49;
-      expect(shoppingCart.tenPoundDiscountIsApplicable()).toBe(false);
       shoppingCart.total = 51;
       expect(shoppingCart.tenPoundDiscountIsApplicable()).toBe(true);
     })
+    it('returns false if discount is not applicable', inject([ShoppingCartComponent], (shoppingCart) => {
+      shoppingCart.total = 49;
+      expect(shoppingCart.tenPoundDiscountIsApplicable()).toBe(false);
   })
 
   describe('#fifteenPoundDiscountIsApplicable', () => {
@@ -119,9 +120,9 @@ describe('Shopping Cart Component', () => {
 
   describe('#invalidVoucher', () => {
     it('alert displayed if invalid voucher', inject([ShoppingCartComponent], (shoppingCart) => {
-      spyOn(shoppingCart, 'invalidVoucher');
+      spyOn(window, 'alert');
       shoppingCart.apply15PoundDiscount();
-      expect(shoppingCart.invalidVoucher).toHaveBeenCalled;
+      expect(window.alert).toHaveBeenCalledWith('You do not qualify for this discount');
     })
   })
 

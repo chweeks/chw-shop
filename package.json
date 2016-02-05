@@ -5,7 +5,7 @@
     "clean": "rimraf src/**/*.js src/**/*.js.map",
     "tsc": "tsc",
     "tsc:w": "tsc -w",
-    "serve": "http-server",
+    "serve": "live-server --open=src/index.html",
     "start": "concurrent \"npm run tsc:w\" \"npm run serve\" ",
     "test": "karma start karma.conf.js"
   },
@@ -21,7 +21,8 @@
   },
   "devDependencies": {
     "concurrently": "^1.0.0",
-    "http-server": "^0.8.5",
+    "http-server": "0.8.5",
+    "live-server": "0.9.1",
     "jasmine": "2.3.2",
     "karma": "^0.13.19",
     "karma-chrome-launcher": "^0.1.4",
