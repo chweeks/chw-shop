@@ -20,6 +20,7 @@ header {
   vertical-align: top;
   display:inline-block;
   background-color: #B3F1FA;
+  box-shadow: 10px 10px 5px #a1d8e1;
 }
 
 .productsContainer {
